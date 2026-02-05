@@ -1,3 +1,5 @@
+> [!WARNING] This file is made for viewing and organizing in Obsidian.  
+> Functionality like internal links, callouts, and notes may not work correctly in other editors.
 # Game Title: {{title}}
 
 **Engine of Choice:**
