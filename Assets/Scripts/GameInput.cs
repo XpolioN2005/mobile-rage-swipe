@@ -5,46 +5,47 @@ using System;
 public class GameInput : MonoBehaviour {
     private InputActions playerInput;
     private Vector2 startPos;
-    private bool isSwiping = false;
+    private bool isSwiping;
 
-    public event Action<float> OnSwipeAngle;   // Fires when swipe ends
-    public event Action<bool> OnPressState;    // Fires true when press starts
+    public event Action<float> OnSwipeAngle;
+    public event Action<bool> OnPressState;
 
-    private void Awake() {
+    void Awake() {
         playerInput = new InputActions();
     }
 
-    private void OnEnable() {
+    void OnEnable() {
         playerInput.Player.Enable();
 
-        // Press start
-        playerInput.Player.Press.started += ctx => {
-            startPos = playerInput.Player.Position.ReadValue<Vector2>();
-            isSwiping = true;
-            OnPressState?.Invoke(isSwiping);
-        };
-
-        // Press end
-        playerInput.Player.Press.canceled += ctx => {
-            if (!isSwiping) return;
-
-            Vector2 endPos = playerInput.Player.Position.ReadValue<Vector2>();
-            Vector2 delta = endPos - startPos;
-
-            if (delta.magnitude > 0) {
-                float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
-                if (angle < 0) angle += 360;
-
-                OnSwipeAngle?.Invoke(angle);
-            }
-
-            isSwiping = false;
-        };
+        playerInput.Player.Press.started += PressStarted;
+        playerInput.Player.Press.canceled += PressCanceled;
     }
 
-    private void OnDisable() {
-        playerInput.Player.Press.started -= ctx => { };
-        playerInput.Player.Press.canceled -= ctx => { };
+    void OnDisable() {
+        playerInput.Player.Press.started -= PressStarted;
+        playerInput.Player.Press.canceled -= PressCanceled;
         playerInput.Player.Disable();
+    }
+
+    void PressStarted(InputAction.CallbackContext ctx) {
+        startPos = playerInput.Player.Position.ReadValue<Vector2>();
+        isSwiping = true;
+        OnPressState?.Invoke(true);
+    }
+
+    void PressCanceled(InputAction.CallbackContext ctx) {
+        if (!isSwiping) return;
+
+        Vector2 endPos = playerInput.Player.Position.ReadValue<Vector2>();
+        Vector2 delta = endPos - startPos;
+
+        if (delta.sqrMagnitude > 25f) {
+            float angle = Mathf.Atan2(delta.y, delta.x) * Mathf.Rad2Deg;
+            if (angle < 0) angle += 360f;
+            OnSwipeAngle?.Invoke(angle);
+        }
+
+        isSwiping = false;
+        OnPressState?.Invoke(false);
     }
 }
