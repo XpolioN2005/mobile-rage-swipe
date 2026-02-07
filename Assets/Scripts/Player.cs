@@ -8,7 +8,7 @@ public class Player2D : MonoBehaviour {
 
     [SerializeField] float slowTimeScale = 0.3f;
 
-    [SerializeField] GameInput gi;
+    [SerializeField] GameInput gameInput;
 
     Rigidbody2D rb;
 
@@ -21,13 +21,13 @@ public class Player2D : MonoBehaviour {
     }
 
     void OnEnable() {
-        gi.OnPressState += OnPress;
-        gi.OnSwipeAngle += OnSwipe;
+        gameInput.OnPressState += OnPress;
+        gameInput.OnSwipeAngle += OnSwipe;
     }
 
     void OnDisable() {
-        gi.OnPressState -= OnPress;
-        gi.OnSwipeAngle -= OnSwipe;
+        gameInput.OnPressState -= OnPress;
+        gameInput.OnSwipeAngle -= OnSwipe;
     }
 
     void FixedUpdate() {
@@ -62,4 +62,5 @@ public class Player2D : MonoBehaviour {
 
         rb.linearVelocity = dir * impluseSpeed;
     }
+
 }

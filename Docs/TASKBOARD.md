@@ -33,10 +33,6 @@ kanban-plugin: board
 
 ## WORKING
 
-- [ ] # Camera and Movement
-	  - [ ] Implement camera follow for climbing
-	  - [x] Implement basic mobile input handling (touch and swipe)
-	  - [x] Hold to slow time mechanic
 - [ ] # Player
 	  - [x] Create player object (glowing sphere)
 	  - [x] Implement single input jump mechanic
@@ -48,6 +44,10 @@ kanban-plugin: board
 ## DONE
 
 **Complete**
+- [x] # Camera and Movement
+	  - [x] Implement camera follow for climbing
+	  - [x] Implement basic mobile input handling (touch and swipe)
+	  - [x] Hold to slow time mechanic
 
 
 ## CANCLE
