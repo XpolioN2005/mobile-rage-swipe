@@ -109,7 +109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca9de142ffb2c64f8ce2a9336c63585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player2D
-  maxSpeed: 12
-  dampingWhilePress: 10
+  maxSpeed: 25
+  impluseSpeed: 15
+  dampingWhilePress: 5
   slowTimeScale: 0.3
-  gm: {fileID: 0}
+  gi: {fileID: 0}

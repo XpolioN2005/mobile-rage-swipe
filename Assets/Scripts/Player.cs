@@ -2,8 +2,9 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class Player2D : MonoBehaviour {
-    [SerializeField] float maxSpeed = 12f;
-    [SerializeField] float dampingWhilePress = 10f;
+    [SerializeField] float maxSpeed = 25f;
+    [SerializeField] float impluseSpeed = 15f;
+    [SerializeField] float dampingWhilePress = 5f;
 
     [SerializeField] float slowTimeScale = 0.3f;
 
@@ -17,8 +18,6 @@ public class Player2D : MonoBehaviour {
 
     void Setup() {
         rb = GetComponent<Rigidbody2D>();
-        rb.linearDamping = 0f;
-        rb.gravityScale = 0f;
     }
 
     void OnEnable() {
@@ -57,11 +56,10 @@ public class Player2D : MonoBehaviour {
             return;
 
         Time.timeScale = 1f;
-        rb.linearDamping = 0f;
 
         float rad = angle * Mathf.Deg2Rad;
         Vector2 dir = new Vector2(Mathf.Cos(rad), Mathf.Sin(rad));
 
-        rb.linearVelocity = dir * maxSpeed;
+        rb.linearVelocity = dir * impluseSpeed;
     }
 }
